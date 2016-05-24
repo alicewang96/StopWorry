@@ -10,7 +10,8 @@ import UIKit
 
 class MonthViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-//PROGRAMMATIC CONSTRAINT ITEMS HERE
+// PROGRAMMATIC CONSTRAINT ITEMS HERE
+    
     @IBOutlet var monthLabel: UILabel!
     @IBOutlet var sun: UILabel!
     @IBOutlet var mon: UILabel!
@@ -20,15 +21,17 @@ class MonthViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet var fri: UILabel!
     @IBOutlet var sat: UILabel!
     
-//END PROGRAMMATIC CONSTRAINT ITEMS HERE
+// END PROGRAMMATIC CONSTRAINT ITEMS HERE
     
-//COLLECTION VIEW ITEMS 
+    
+// COLLECTION VIEW ITEMS
 
     @IBOutlet var mainCollectionView: UICollectionView!
     
     
     
-//DATA
+// DATA
+    
     var days = [String]()
     var ind = Int()
     var offset = 0
@@ -57,7 +60,8 @@ class MonthViewController: UIViewController, UICollectionViewDelegate, UICollect
             getData(2)
         mainCollectionView.reloadData()
     }
-//END DATA
+    
+// END DATA
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +81,7 @@ class MonthViewController: UIViewController, UICollectionViewDelegate, UICollect
         // Dispose of any resources that can be recreated.
     }
     
-//FUNCTIONS FOR COLLECTION VIEW
+// FUNCTIONS FOR COLLECTION VIEW
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -107,15 +111,5 @@ class MonthViewController: UIViewController, UICollectionViewDelegate, UICollect
         vc.dayLabel.text = days[ind]
       
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
