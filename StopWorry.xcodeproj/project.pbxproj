@@ -18,6 +18,8 @@
 		42A15A371CEB0036001FD1DE /* HappyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A361CEB0036001FD1DE /* HappyViewController.swift */; };
 		42A15A391CEB0047001FD1DE /* MonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A381CEB0047001FD1DE /* MonthViewController.swift */; };
 		42A15A3B1CEB0051001FD1DE /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A3A1CEB0051001FD1DE /* DayViewController.swift */; };
+		42F1245B1CF43AEB00D63311 /* ThoughtTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F1245A1CF43AEB00D63311 /* ThoughtTableViewCell.swift */; };
+		42F1245D1CF43F7600D63311 /* NSDateStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F1245C1CF43F7600D63311 /* NSDateStuff.swift */; };
 		42F3304F1CF3BBCD00F5D1B2 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3304E1CF3BBCD00F5D1B2 /* DayCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +58,8 @@
 		42A15A361CEB0036001FD1DE /* HappyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HappyViewController.swift; sourceTree = "<group>"; };
 		42A15A381CEB0047001FD1DE /* MonthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthViewController.swift; sourceTree = "<group>"; };
 		42A15A3A1CEB0051001FD1DE /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
+		42F1245A1CF43AEB00D63311 /* ThoughtTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThoughtTableViewCell.swift; sourceTree = "<group>"; };
+		42F1245C1CF43F7600D63311 /* NSDateStuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateStuff.swift; sourceTree = "<group>"; };
 		42F3304E1CF3BBCD00F5D1B2 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,8 +114,10 @@
 				42A15A061CE99FE7001FD1DE /* AppDelegate.swift */,
 				42A15A081CE99FE7001FD1DE /* ViewController.swift */,
 				42A15A0A1CE99FE7001FD1DE /* Main.storyboard */,
+				42F1245A1CF43AEB00D63311 /* ThoughtTableViewCell.swift */,
 				42F3304E1CF3BBCD00F5D1B2 /* DayCollectionViewCell.swift */,
 				42A15A381CEB0047001FD1DE /* MonthViewController.swift */,
+				42F1245C1CF43F7600D63311 /* NSDateStuff.swift */,
 				42A15A3A1CEB0051001FD1DE /* DayViewController.swift */,
 				42A15A341CEB002C001FD1DE /* RantViewController.swift */,
 				42A15A361CEB0036001FD1DE /* HappyViewController.swift */,
@@ -275,8 +281,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				42A15A091CE99FE7001FD1DE /* ViewController.swift in Sources */,
+				42F1245D1CF43F7600D63311 /* NSDateStuff.swift in Sources */,
 				42A15A391CEB0047001FD1DE /* MonthViewController.swift in Sources */,
 				42A15A371CEB0036001FD1DE /* HappyViewController.swift in Sources */,
+				42F1245B1CF43AEB00D63311 /* ThoughtTableViewCell.swift in Sources */,
 				42A15A351CEB002C001FD1DE /* RantViewController.swift in Sources */,
 				42F3304F1CF3BBCD00F5D1B2 /* DayCollectionViewCell.swift in Sources */,
 				42A15A071CE99FE7001FD1DE /* AppDelegate.swift in Sources */,

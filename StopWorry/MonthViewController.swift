@@ -11,9 +11,7 @@ import UIKit
 class MonthViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
 //PROGRAMMATIC CONSTRAINT ITEMS HERE
-    @IBOutlet var prevMonthButton: UIButton!
     @IBOutlet var monthLabel: UILabel!
-    @IBOutlet var nextMonthButton: UIButton!
     @IBOutlet var sun: UILabel!
     @IBOutlet var mon: UILabel!
     @IBOutlet var tue: UILabel!
@@ -26,22 +24,52 @@ class MonthViewController: UIViewController, UICollectionViewDelegate, UICollect
     
 //COLLECTION VIEW ITEMS 
 
-    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var mainCollectionView: UICollectionView!
     
-//END COLLECTION VIEW ITEMS
     
     
 //DATA
-//    var days = [Int]()
-    var days = [1,2,3,4,5,6,7]
+    var days = [String]()
+    var ind = Int()
+    var offset = 0
+    func getData(receive: Int) {
+        if receive == 0 {
+            let d = NSDate()
+            self.monthLabel.text = d.monthString()
+            
+            let numDays = d.getNumDaysInMonth()
+            for i in 1...numDays {
+                days.append(String(i))
+            }
+            
+        } else if receive == 1 {
+            //load previous month's data
+        } else {
+            //load next month's data
+        }
+    }
+    @IBAction func prevMonth(sender: AnyObject) {
+        getData(1)
+        mainCollectionView.reloadData()
+    }
+    
+    @IBAction func nextMonth(sender: AnyObject) {
+            getData(2)
+        mainCollectionView.reloadData()
+    }
 //END DATA
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        getData(0)
+        
+        self.view.backgroundColor = UIColor.whiteColor()
+        mainCollectionView.backgroundColor = UIColor.whiteColor()
+        
         // Do any additional setup after loading the view.
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        mainCollectionView.delegate = self
+        mainCollectionView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,22 +86,26 @@ class MonthViewController: UIViewController, UICollectionViewDelegate, UICollect
         return days.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell:DayCollectionViewCell? = nil
-        cell = collectionView.dequeueReusableCellWithReuseIdentifier("monthCell", forIndexPath: indexPath) as! DayCollectionViewCell
-        
-        cell.
-        
-        return cell!
-    }
-    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("toDay", sender: indexPath)
+        ind = indexPath.row
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = mainCollectionView.dequeueReusableCellWithReuseIdentifier("monthCell", forIndexPath: indexPath) as! DayCollectionViewCell
+        cell.dayNumber.text = days[indexPath.row]
+        return cell
+    }
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        ind = indexPath.row
+        return true
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let vc = segue.destinationViewController as! DayViewController
-        vc.dayLabel.text =
+        print(ind)
+        vc.dayLabel.text = days[ind]
+      
     }
 
     /*

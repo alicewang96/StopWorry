@@ -19,13 +19,18 @@ class DayViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet var addRant: UIButton!
     
 //END PROGRAMMATIC CONSTRAINT ITEMS HERE
-    @IBOutlet var tableView: UITableView!
+
+//DATA  
+    var thoughts = [String]()
+//END DATA
+    var ind = Int()
+    @IBOutlet var mainTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.delegate = self
-        tableView.dataSource = self
+        mainTableView.delegate = self
+        mainTableView.dataSource = self
         // Do any additional setup after loading the view.
     }
 
@@ -35,18 +40,24 @@ class DayViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
 //TABLE VIEW FUNCTIONS
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
-    }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        <#code#>
+        return 1
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        <#code#>
+        //        self.performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
+        ind = indexPath.row
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        <#code#>
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell = mainTableView.dequeueReusableCellWithReuseIdentifier("dayCell", forIndexPath: indexPath) as! ThoughtTableViewCell
+        let cell = mainTableView.dequeueReusableCellWithIdentifier("dayCell", forIndexPath: indexPath) as! ThoughtTableViewCell
+        
+//        cell.Thoughts.text = thoughts[ind]
+        return cell
     }
+
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        return
+//    }
 
     /*
     // MARK: - Navigation

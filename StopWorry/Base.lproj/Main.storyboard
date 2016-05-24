@@ -29,6 +29,9 @@
                                 <state key="normal" title="&gt;">
                                     <color key="titleColor" red="0.088343657553195953" green="0.6588476300239563" blue="0.72281861305236816" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="nextMonth:" destination="BYZ-38-t0r" eventType="touchUpInside" id="prB-dA-DiC"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1E-XW-Q1J">
                                 <rect key="frame" x="59" y="28" width="46" height="30"/>
@@ -36,6 +39,9 @@
                                 <state key="normal" title="&lt;">
                                     <color key="titleColor" red="0.088343657553195953" green="0.6588476300239563" blue="0.72281861305236816" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="prevMonth:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uSG-9Z-aqW"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PIY-nw-2Sy">
                                 <rect key="frame" x="0.0" y="104" width="320" height="429"/>
@@ -116,12 +122,10 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="collectionView" destination="PIY-nw-2Sy" id="rPw-05-kXY"/>
                         <outlet property="fri" destination="qu3-Yu-N93" id="ZaU-JX-qiO"/>
+                        <outlet property="mainCollectionView" destination="PIY-nw-2Sy" id="Fsz-ae-hwv"/>
                         <outlet property="mon" destination="4Aj-qI-Wdn" id="K1Z-fC-fc8"/>
                         <outlet property="monthLabel" destination="DaG-xd-aZ5" id="nS1-xV-2dm"/>
-                        <outlet property="nextMonthButton" destination="Xev-5z-NM6" id="j7I-BJ-jH8"/>
-                        <outlet property="prevMonthButton" destination="A1E-XW-Q1J" id="eOT-Nb-yQY"/>
                         <outlet property="sat" destination="AO1-Ty-OkB" id="RFh-aG-Rwg"/>
                         <outlet property="sun" destination="HuW-xH-bJT" id="wdv-7J-kIN"/>
                         <outlet property="thu" destination="Jga-8q-5M1" id="9Js-Hd-JOm"/>
@@ -187,13 +191,24 @@
                                 <rect key="frame" x="0.0" y="71" width="320" height="406"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dayCell" id="OXI-n0-cJS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dayCell" id="OXI-n0-cJS" customClass="ThoughtTableViewCell" customModule="StopWorry" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OXI-n0-cJS" id="kml-L2-16Y">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WAOW ANXIETY WAOW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1L-Sm-PpA">
+                                                    <rect key="frame" x="8" y="8" width="304" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="Thoughts" destination="J1L-Sm-PpA" id="2zP-bI-yOJ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -248,13 +263,13 @@
                         <outlet property="addRant" destination="wpI-mJ-pO7" id="lh8-XC-FsT"/>
                         <outlet property="backButtton" destination="t2L-Ft-vM8" id="cMG-lp-uua"/>
                         <outlet property="dayLabel" destination="iRc-60-4L8" id="6iW-7o-tOf"/>
+                        <outlet property="mainTableView" destination="A2d-Ix-9tE" id="7Gq-o5-Oil"/>
                         <outlet property="nextButton" destination="0cG-dK-uSb" id="kFM-Py-ty1"/>
-                        <outlet property="tableView" destination="A2d-Ix-9tE" id="vVb-8K-N4V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1CK-bb-ms6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="761" y="319"/>
+            <point key="canvasLocation" x="760" y="319"/>
         </scene>
     </scenes>
 </document>
