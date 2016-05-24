@@ -137,25 +137,6 @@
             </objects>
             <point key="canvasLocation" x="372" y="312"/>
         </scene>
-        <!--Happy View Controller-->
-        <scene sceneID="lwG-Hh-ZpS">
-            <objects>
-                <viewController id="1yC-0l-d6i" customClass="HappyViewController" customModule="StopWorry" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dvr-Bh-rUO"/>
-                        <viewControllerLayoutGuide type="bottom" id="0Rr-vZ-fya"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jTR-vn-wgC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ePo-zn-oRZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1200" y="319"/>
-        </scene>
         <!--Rant View Controller-->
         <scene sceneID="FbQ-Ss-jt4">
             <objects>
@@ -167,13 +148,25 @@
                     <view key="view" contentMode="scaleToFill" id="Dcj-A7-jSN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5FY-Pj-A9k">
+                                <rect key="frame" x="6" y="28" width="307" height="532"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MT7-cy-lEd">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gxe-7b-lgp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1609" y="319"/>
+            <point key="canvasLocation" x="1209" y="312"/>
         </scene>
         <!--Day View Controller-->
         <scene sceneID="66Y-Cc-aA1">
@@ -250,9 +243,6 @@
                                 <state key="normal" title="Add Happy Thought">
                                     <color key="titleColor" red="0.9959825873374939" green="0.99621325731277466" blue="0.99187678098678589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="1yC-0l-d6i" kind="show" identifier="toHappy" id="Tzg-uE-hUV"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
