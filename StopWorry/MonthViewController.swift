@@ -10,7 +10,8 @@ import UIKit
 
 class MonthViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-//PROGRAMMATIC CONSTRAINT ITEMS HERE
+// PROGRAMMATIC CONSTRAINT ITEMS HERE
+    
     @IBOutlet var prevMonthButton: UIButton!
     @IBOutlet var monthLabel: UILabel!
     @IBOutlet var nextMonthButton: UIButton!
@@ -22,19 +23,19 @@ class MonthViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet var fri: UILabel!
     @IBOutlet var sat: UILabel!
     
-//END PROGRAMMATIC CONSTRAINT ITEMS HERE
+// END PROGRAMMATIC CONSTRAINT ITEMS HERE
     
-//COLLECTION VIEW ITEMS 
+// COLLECTION VIEW ITEMS
 
     @IBOutlet var collectionView: UICollectionView!
     
-//END COLLECTION VIEW ITEMS
+// END COLLECTION VIEW ITEMS
     
     
-//DATA
+// DATA
 //    var days = [Int]()
     var days = [1,2,3,4,5,6,7]
-//END DATA
+// END DATA
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class MonthViewController: UIViewController, UICollectionViewDelegate, UICollect
         // Dispose of any resources that can be recreated.
     }
     
-//FUNCTIONS FOR COLLECTION VIEW
+// FUNCTIONS FOR COLLECTION VIEW
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -75,15 +76,5 @@ class MonthViewController: UIViewController, UICollectionViewDelegate, UICollect
         let vc = segue.destinationViewController as! DayViewController
         vc.dayLabel.text =
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

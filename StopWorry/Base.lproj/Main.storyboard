@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -133,25 +133,6 @@
             </objects>
             <point key="canvasLocation" x="372" y="312"/>
         </scene>
-        <!--Happy View Controller-->
-        <scene sceneID="lwG-Hh-ZpS">
-            <objects>
-                <viewController id="1yC-0l-d6i" customClass="HappyViewController" customModule="StopWorry" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dvr-Bh-rUO"/>
-                        <viewControllerLayoutGuide type="bottom" id="0Rr-vZ-fya"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jTR-vn-wgC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ePo-zn-oRZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1200" y="319"/>
-        </scene>
         <!--Rant View Controller-->
         <scene sceneID="FbQ-Ss-jt4">
             <objects>
@@ -169,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gxe-7b-lgp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1609" y="319"/>
+            <point key="canvasLocation" x="1252" y="319"/>
         </scene>
         <!--Day View Controller-->
         <scene sceneID="66Y-Cc-aA1">
@@ -183,22 +164,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="A2d-Ix-9tE">
-                                <rect key="frame" x="0.0" y="71" width="320" height="406"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dayCell" id="OXI-n0-cJS">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OXI-n0-cJS" id="kml-L2-16Y">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpI-mJ-pO7">
-                                <rect key="frame" x="163" y="485" width="148" height="75"/>
+                                <rect key="frame" x="8" y="520" width="303" height="40"/>
                                 <color key="backgroundColor" red="0.5" green="0.0" blue="0.5" alpha="0.85237068965517238" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="18"/>
                                 <state key="normal" title="Rant Away!">
@@ -228,33 +195,28 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7yg-TW-kSr">
-                                <rect key="frame" x="7" y="485" width="148" height="75"/>
-                                <color key="backgroundColor" red="0.98879998922348022" green="0.83329087495803833" blue="0.0032923598773777485" alpha="0.61099137931034486" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="18"/>
-                                <state key="normal" title="Add Happy Thought">
-                                    <color key="titleColor" red="0.9959825873374939" green="0.99621325731277466" blue="0.99187678098678589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NZj-Yf-dyd">
+                                <rect key="frame" x="0.0" y="63" width="320" height="449"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="1yC-0l-d6i" kind="show" identifier="toHappy" id="Tzg-uE-hUV"/>
+                                    <outlet property="dataSource" destination="4OK-lV-xE7" id="1Kz-PF-afv"/>
+                                    <outlet property="delegate" destination="4OK-lV-xE7" id="NQv-Uh-HyX"/>
                                 </connections>
-                            </button>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="addHappy" destination="7yg-TW-kSr" id="cld-VK-tDS"/>
                         <outlet property="addRant" destination="wpI-mJ-pO7" id="lh8-XC-FsT"/>
                         <outlet property="backButtton" destination="t2L-Ft-vM8" id="cMG-lp-uua"/>
                         <outlet property="dayLabel" destination="iRc-60-4L8" id="6iW-7o-tOf"/>
                         <outlet property="nextButton" destination="0cG-dK-uSb" id="kFM-Py-ty1"/>
-                        <outlet property="tableView" destination="A2d-Ix-9tE" id="vVb-8K-N4V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1CK-bb-ms6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="761" y="319"/>
+            <point key="canvasLocation" x="789" y="312"/>
         </scene>
     </scenes>
 </document>
