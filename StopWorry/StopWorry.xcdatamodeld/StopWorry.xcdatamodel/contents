@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+    <entity name="Day" representedClassName=".Day" syncable="YES">
+        <attribute name="day" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="happyNote" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HappyNote" inverseName="date" inverseEntity="HappyNote" syncable="YES"/>
+    </entity>
+    <entity name="HappyNote" representedClassName=".HappyNote" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="date" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Day" inverseName="happyNote" inverseEntity="Day" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="HappyNote" positionX="-90" positionY="-162" width="128" height="88"/>
+        <element name="Day" positionX="-306" positionY="-162" width="128" height="73"/>
+    </elements>
+</model>

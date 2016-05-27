@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4172B30B1CF638430051A052 /* StopWorry.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4172B3091CF638430051A052 /* StopWorry.xcdatamodeld */; };
+		4172B3101CF638980051A052 /* Day+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B30C1CF638980051A052 /* Day+CoreDataProperties.swift */; };
+		4172B3111CF638980051A052 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B30D1CF638980051A052 /* Day.swift */; };
+		4172B3121CF638980051A052 /* HappyNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B30E1CF638980051A052 /* HappyNote+CoreDataProperties.swift */; };
+		4172B3131CF638980051A052 /* HappyNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B30F1CF638980051A052 /* HappyNote.swift */; };
 		42A15A071CE99FE7001FD1DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A061CE99FE7001FD1DE /* AppDelegate.swift */; };
 		42A15A091CE99FE7001FD1DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A081CE99FE7001FD1DE /* ViewController.swift */; };
 		42A15A0C1CE99FE7001FD1DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A15A0A1CE99FE7001FD1DE /* Main.storyboard */; };
@@ -15,7 +20,6 @@
 		42A15A1C1CE99FE7001FD1DE /* StopWorryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A1B1CE99FE7001FD1DE /* StopWorryTests.swift */; };
 		42A15A271CE99FE7001FD1DE /* StopWorryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A261CE99FE7001FD1DE /* StopWorryUITests.swift */; };
 		42A15A351CEB002C001FD1DE /* RantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A341CEB002C001FD1DE /* RantViewController.swift */; };
-		42A15A371CEB0036001FD1DE /* HappyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A361CEB0036001FD1DE /* HappyViewController.swift */; };
 		42A15A391CEB0047001FD1DE /* MonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A381CEB0047001FD1DE /* MonthViewController.swift */; };
 		42A15A3B1CEB0051001FD1DE /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A15A3A1CEB0051001FD1DE /* DayViewController.swift */; };
 		42F1245B1CF43AEB00D63311 /* ThoughtTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F1245A1CF43AEB00D63311 /* ThoughtTableViewCell.swift */; };
@@ -41,6 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4172B30A1CF638430051A052 /* StopWorry.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StopWorry.xcdatamodel; sourceTree = "<group>"; };
+		4172B30C1CF638980051A052 /* Day+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Day+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4172B30D1CF638980051A052 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		4172B30E1CF638980051A052 /* HappyNote+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HappyNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4172B30F1CF638980051A052 /* HappyNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HappyNote.swift; sourceTree = "<group>"; };
+		4172B3351CF66BF50051A052 /* StopWorry 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "StopWorry 2.xcdatamodel"; sourceTree = "<group>"; };
 		42A15A031CE99FE6001FD1DE /* StopWorry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopWorry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42A15A061CE99FE7001FD1DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42A15A081CE99FE7001FD1DE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,7 +65,6 @@
 		42A15A261CE99FE7001FD1DE /* StopWorryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWorryUITests.swift; sourceTree = "<group>"; };
 		42A15A281CE99FE7001FD1DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42A15A341CEB002C001FD1DE /* RantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RantViewController.swift; sourceTree = "<group>"; };
-		42A15A361CEB0036001FD1DE /* HappyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HappyViewController.swift; sourceTree = "<group>"; };
 		42A15A381CEB0047001FD1DE /* MonthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthViewController.swift; sourceTree = "<group>"; };
 		42A15A3A1CEB0051001FD1DE /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
 		42F1245A1CF43AEB00D63311 /* ThoughtTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThoughtTableViewCell.swift; sourceTree = "<group>"; };
@@ -118,12 +127,16 @@
 				42F3304E1CF3BBCD00F5D1B2 /* DayCollectionViewCell.swift */,
 				42A15A381CEB0047001FD1DE /* MonthViewController.swift */,
 				42F1245C1CF43F7600D63311 /* NSDateStuff.swift */,
-				42A15A3A1CEB0051001FD1DE /* DayViewController.swift */,
 				42A15A341CEB002C001FD1DE /* RantViewController.swift */,
-				42A15A361CEB0036001FD1DE /* HappyViewController.swift */,
 				42A15A0D1CE99FE7001FD1DE /* Assets.xcassets */,
 				42A15A0F1CE99FE7001FD1DE /* LaunchScreen.storyboard */,
 				42A15A121CE99FE7001FD1DE /* Info.plist */,
+				4172B3091CF638430051A052 /* StopWorry.xcdatamodeld */,
+				42A15A3A1CEB0051001FD1DE /* DayViewController.swift */,
+				4172B30E1CF638980051A052 /* HappyNote+CoreDataProperties.swift */,
+				4172B30F1CF638980051A052 /* HappyNote.swift */,
+				4172B30C1CF638980051A052 /* Day+CoreDataProperties.swift */,
+				4172B30D1CF638980051A052 /* Day.swift */,
 			);
 			path = StopWorry;
 			sourceTree = "<group>";
@@ -283,11 +296,15 @@
 				42A15A091CE99FE7001FD1DE /* ViewController.swift in Sources */,
 				42F1245D1CF43F7600D63311 /* NSDateStuff.swift in Sources */,
 				42A15A391CEB0047001FD1DE /* MonthViewController.swift in Sources */,
-				42A15A371CEB0036001FD1DE /* HappyViewController.swift in Sources */,
 				42F1245B1CF43AEB00D63311 /* ThoughtTableViewCell.swift in Sources */,
+				4172B3111CF638980051A052 /* Day.swift in Sources */,
+				4172B30B1CF638430051A052 /* StopWorry.xcdatamodeld in Sources */,
 				42A15A351CEB002C001FD1DE /* RantViewController.swift in Sources */,
 				42F3304F1CF3BBCD00F5D1B2 /* DayCollectionViewCell.swift in Sources */,
+				4172B3121CF638980051A052 /* HappyNote+CoreDataProperties.swift in Sources */,
+				4172B3131CF638980051A052 /* HappyNote.swift in Sources */,
 				42A15A071CE99FE7001FD1DE /* AppDelegate.swift in Sources */,
+				4172B3101CF638980051A052 /* Day+CoreDataProperties.swift in Sources */,
 				42A15A3B1CEB0051001FD1DE /* DayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,10 +447,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = StopWorry/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alicecal.StopWorry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StopWorry/StopWorry-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -441,10 +461,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = StopWorry/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alicecal.StopWorry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StopWorry/StopWorry-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -534,6 +556,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4172B3091CF638430051A052 /* StopWorry.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4172B3351CF66BF50051A052 /* StopWorry 2.xcdatamodel */,
+				4172B30A1CF638430051A052 /* StopWorry.xcdatamodel */,
+			);
+			currentVersion = 4172B30A1CF638430051A052 /* StopWorry.xcdatamodel */;
+			path = StopWorry.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 42A159FB1CE99FE6001FD1DE /* Project object */;
 }
