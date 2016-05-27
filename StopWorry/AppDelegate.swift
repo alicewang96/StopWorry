@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.makeKeyAndVisible()
         
-        let layout = UICollectionViewFlowLayout() // FLOW VS NOT
+        let layout = UICollectionViewFlowLayout()
         let dayController = DayViewController(collectionViewLayout: layout)
         window?.rootViewController = UINavigationController(rootViewController: dayController)
         

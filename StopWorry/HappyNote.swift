@@ -6,12 +6,11 @@
 //  Copyright © 2016 Alice Wang. All rights reserved.
 //
 
+import UIKit
 import Foundation
 import CoreData
 
 
 class HappyNote: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
 
 }
