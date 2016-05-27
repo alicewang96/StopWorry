@@ -25,7 +25,7 @@
 import UIKit
 import CoreData
 
-class DayViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class DayViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     @IBOutlet var backButtton: UIButton!
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var nextButton: UIButton!
@@ -151,22 +151,37 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.backgroundColor = UIColor(red: 245.0/255.0, green: 215.0/255.0, blue: 209.0/255.0, alpha: 1.0) // BACKGROUND COLOR
         collectionView?.registerClass(HappyCell.self, forCellWithReuseIdentifier: cellID)
         collectionView?.alwaysBounceVertical = true
+        collectionView?.allowsSelection = true
         
         noteSetup()
+        
+//        let noteRecognizer = UITapGestureRecognizer(target: self, action: #selector(DayViewController.handleTap))
+//        noteRecognizer.delegate = self
+//        collectionView?.addGestureRecognizer(noteRecognizer)
+        
+        // let cell = collectionView?.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: NSIndexPath.self()) as! HappyCell
+        //collectionView?.indexPathForCell(<#T##cell: UICollectionViewCell##UICollectionViewCell#>)
+    }
+    
+    func handleTap() {
+        let tapAlert = UIAlertController(title: "hmmm...", message: "this actually worked?", preferredStyle: UIAlertControllerStyle.Alert)
+        tapAlert.addAction(UIAlertAction(title: "OK", style: .Destructive, handler: nil))
+        self.presentViewController(tapAlert, animated: true, completion: nil)
     }
     
     // IF CELL IS SELECTED,
     // A) SAVE INPUT WITH NSUSERDEFAULTS
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: indexPath) as! HappyCell
-        
-        setDefaults(indexPath)
-    }
+//    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+//        // let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: indexPath) as! HappyCell
+//        print("hi")
+//        
+//        setDefaults(indexPath)
+//    }
     
-    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        
-        loadDefaults(indexPath)
-    }
+//    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+//        
+//        loadDefaults(indexPath)
+//    }
     
     func setDefaults(index: NSIndexPath) {
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -195,6 +210,10 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         
         let newSize = cell.textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max))
         cell.textView.frame.size = CGSize(width: view.frame.width, height: newSize.height)
+        
+        let noteRecognizer = UITapGestureRecognizer(target: self, action: #selector(DayViewController.handleTap))
+        noteRecognizer.delegate = self
+        cell.textView.addGestureRecognizer(noteRecognizer)
 
         return cell
     }
@@ -209,8 +228,9 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         let size = CGSizeMake(view.frame.width, view.frame.height)
         let options = NSStringDrawingOptions.UsesFontLeading.union(.UsesLineFragmentOrigin)
         let newFrame = NSString(string: noteText).boundingRectWithSize(size, options: options, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)], context: nil)
-
-        return CGSizeMake(view.frame.width, newFrame.height + 20) // FIND BETTER WAY OF CALC HEIGHT
+        
+        print(newFrame.height)
+        return CGSizeMake(view.frame.width, newFrame.height + 50) // FIND BETTER WAY OF CALC HEIGHT
     }
     
     // CELL DISTANCE
