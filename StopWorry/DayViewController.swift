@@ -155,49 +155,62 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.alwaysBounceVertical = true
         collectionView?.allowsSelection = true
         
+        let addButton = newButton("NEW NOTE")
+        addRant = rantButton("NEW RANT")
+        view.addSubview(addButton)
+        view.addSubview(addRant)
+        view.addConstraintFormat("H:|[v0(\(view.frame.width/2))][v1(\(view.frame.width/2))]|", views: addButton, addRant)
+        view.addConstraintFormat("V:[v0]|", views: addButton)
+        view.addConstraintFormat("V:[v0]|", views: addRant)
+        
+//        let bottom = NSLayoutConstraint(item: addButton, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
+//        view.addConstraint(bottom)
+        
         noteSetup()
     }
     
+    let buttonView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.blackColor()
+        
+        return view
+    } ()
+    
+    func newButton(title: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle(title, forState: .Normal)
+        button.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
+        button.backgroundColor = UIColor.lightGrayColor()
+        return button
+    }
+
+    func rantButton(title: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle(title, forState: .Normal)
+        button.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        button.backgroundColor = UIColor.darkGrayColor()
+        return button
+    }
+    
+    var path: NSIndexPath?
+    
     func handleTap(gesture: UITapGestureRecognizer) {
-        if gesture.state != UIGestureRecognizerState.Ended {
-            return
-        }
-        
         let touch = gesture.locationInView(self.collectionView)
-        let indexPath = self.collectionView!.indexPathForItemAtPoint(touch)
+        path = self.collectionView!.indexPathForItemAtPoint(touch)
         
-        if let index = indexPath {
-            self.collectionView?.endEditing(true)
-            
-            let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: index) as! HappyCell
-            cell.textView.allowsEditingTextAttributes = true
-            //print("become: \(cell.becomeFirstResponder())")
-            //print("is: \(cell.textView.isFirstResponder())")
-            //print("note text: \(noteMgr[index.item].content!)")
-            //print("cell text: \(cell.textView.text) \n")
-        } else {
-            print("Could not find index path")
+        if let index = path {
+            let cell = self.collectionView!.cellForItemAtIndexPath(index) as! HappyCell
+            cell.textView.becomeFirstResponder()
+            //print("isFirstResponder: \(cell.textView.isFirstResponder())")
         }
     }
     
     func textViewDidChange(textView: UITextView) {
-        if textView.text != "" {
-            textView.remove(true)
-            
-        } else {
-            textView.remove(false)
+        // DON'T MESS WITH THIS CODE!!!
+        if let index = path {
+            let cell = self.collectionView!.cellForItemAtIndexPath(index) as! HappyCell
+            cell.placeholder.hidden = cell.textView.hasText()
         }
-    }
-    
-    func setDefaults(index: NSIndexPath) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(noteMgr[index.item].content, forKey: "content")
-        defaults.synchronize()
-    }
-    
-    func loadDefaults(index: NSIndexPath) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        noteMgr[index.item].content = defaults.objectForKey("content") as? String
     }
     
     // ROWS
@@ -210,9 +223,7 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: indexPath) as! HappyCell
         cell.textView.delegate = self
         cell.setText(noteMgr[indexPath.item].content!)
-        
-        let newSize = cell.textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max))
-        cell.textView.frame.size = CGSize(width: view.frame.width, height: newSize.height)
+        cell.placeholder.hidden = cell.textView.hasText()
         
         let noteRecognizer = UITapGestureRecognizer(target: self, action: #selector(DayViewController.handleTap))
         cell.textView.addGestureRecognizer(noteRecognizer)
@@ -224,12 +235,16 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         // AUTO LAYOUT HEIGHT
         let noteText = noteMgr[indexPath.item].content!
-        let size = CGSizeMake(view.frame.width, view.frame.height)
-        let options = NSStringDrawingOptions.UsesFontLeading.union(.UsesLineFragmentOrigin)
-        let newFrame = NSString(string: noteText).boundingRectWithSize(size, options: options, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)], context: nil)
-        
-        // print(newFrame.height)
-        return CGSizeMake(view.frame.width, newFrame.height + 50) // FIND BETTER WAY OF CALC HEIGHT
+        if noteText != "" {
+            let size = CGSizeMake(view.frame.width, view.frame.height)
+            let options = NSStringDrawingOptions.UsesFontLeading.union(.UsesLineFragmentOrigin)
+            let newFrame = NSString(string: noteText).boundingRectWithSize(size, options: options, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)], context: nil)
+            
+            // print(newFrame.height)
+            return CGSizeMake(view.frame.width, newFrame.height + 30) // FIND BETTER WAY OF CALC HEIGHT
+        } else {
+            return CGSizeMake(view.frame.width, view.frame.height/2)
+        }
         
 //        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: indexPath) as! HappyCell
 //        cell.setText(noteMgr[indexPath.item].content!)
@@ -248,7 +263,10 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
     
 }
 
-class HappyCell: NoteCell {
+/* ########## Extra Functions ########## */
+
+
+class HappyCell: NoteCell, UITextViewDelegate {
     func setText(text: String) {
         textView.text = text
     }
@@ -261,14 +279,19 @@ class HappyCell: NoteCell {
     
     let textView: UITextView = {
         let view = UITextView()
-        view.delegate = UIApplication.sharedApplication().delegate as? UITextViewDelegate
         view.font = UIFont.systemFontOfSize(16)
         view.backgroundColor = UIColor.clearColor()
         view.allowsEditingTextAttributes = true
-        view.userInteractionEnabled = true
         view.scrollEnabled = false
-        
         return view
+    }()
+    
+    let placeholder: UILabel = {
+        let label = UILabel()
+        label.text = "Add a new happy thought!"
+        label.font = UIFont.systemFontOfSize(16)
+        label.textColor = UIColor.lightGrayColor()
+        return label
     }()
     
     override func pageSetup() {
@@ -277,10 +300,11 @@ class HappyCell: NoteCell {
         addConstraintFormat("H:|[v0]|", views: containerView)
         addConstraintFormat("V:|[v0]|", views: containerView)
         
-        addSubview(textView.placeholder!)
-        textView.placeholder!.translatesAutoresizingMaskIntoConstraints = false
-        addConstraintFormat("H:|-10-[v0]", views: textView.placeholder!)
-        addConstraintFormat("V:|-10-[v0]", views: textView.placeholder!)
+        addSubview(placeholder)
+        placeholder.translatesAutoresizingMaskIntoConstraints = false
+        addConstraintFormat("H:|-10-[v0]", views: placeholder)
+        addConstraintFormat("V:|-10-[v0]", views: placeholder)
+
         
         addSubview(textView)
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -289,27 +313,6 @@ class HappyCell: NoteCell {
     }
 
 }
-
-extension UITextView: UITextViewDelegate {
-    var placeholder: UILabel? {
-        get {
-            return placeholderLabel
-        }
-    }
-    
-    func remove(set: Bool) {
-        placeholder!.hidden = set
-    }
-}
-
-let placeholderLabel: UILabel = {
-    let view = UILabel()
-    view.text = "Add a new happy thought!"
-    view.font = UIFont.systemFontOfSize(16)
-    view.textColor = UIColor.lightGrayColor()
-    view.hidden = false
-    return view
-}()
 
 extension UIView {
     func addConstraintFormat(format: String, views: UIView...) {
@@ -338,3 +341,27 @@ class NoteCell: UICollectionViewCell {
         // CODE
     }
 }
+
+
+/* HOW TO DO EXTENSION */
+
+//extension UITextView: UITextViewDelegate {
+//    var placeholder: UILabel? {
+//        get {
+//            return placeholderLabel
+//        }
+//    }
+//
+//    func remove(set: Bool) {
+//        placeholder!.hidden = set
+//    }
+//}
+
+//let placeholderLabel: UILabel = {
+//    let view = UILabel()
+//    view.text = "Add a new happy thought!"
+//    view.font = UIFont.systemFontOfSize(16)
+//    view.textColor = UIColor.lightGrayColor()
+//    view.hidden = false
+//    return view
+//}()
