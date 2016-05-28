@@ -155,16 +155,14 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.alwaysBounceVertical = true
         collectionView?.allowsSelection = true
         
-        let addButton = newButton("NEW NOTE")
+        //let addButton = newButton("NEW NOTE")
         addRant = rantButton("NEW RANT")
-        view.addSubview(addButton)
+        //view.addSubview(addButton)
         view.addSubview(addRant)
-        view.addConstraintFormat("H:|[v0(\(view.frame.width/2))][v1(\(view.frame.width/2))]|", views: addButton, addRant)
-        view.addConstraintFormat("V:[v0]|", views: addButton)
+        //view.addConstraintFormat("H:|[v0(\(view.frame.width/2))][v1(\(view.frame.width/2))]|", views: addButton, addRant)
+        view.addConstraintFormat("H:|[v0]|", views: addRant)
+        //view.addConstraintFormat("V:[v0]|", views: addButton)
         view.addConstraintFormat("V:[v0]|", views: addRant)
-        
-//        let bottom = NSLayoutConstraint(item: addButton, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
-//        view.addConstraint(bottom)
         
         noteSetup()
     }
@@ -175,26 +173,22 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         
         return view
     } ()
-    
-    func newButton(title: String) -> UIButton {
-        let button = UIButton()
-        button.setTitle(title, forState: .Normal)
-        button.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        button.backgroundColor = UIColor.lightGrayColor()
-        return button
-    }
 
     func rantButton(title: String) -> UIButton {
         let button = UIButton()
         button.setTitle(title, forState: .Normal)
-        button.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        button.backgroundColor = UIColor.darkGrayColor()
+        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        button.backgroundColor = UIColor.redColor()
         return button
     }
     
     var path: NSIndexPath?
     
     func handleTap(gesture: UITapGestureRecognizer) {
+        if (gesture.state != UIGestureRecognizerState.Ended) {
+            return
+        }
+        
         let touch = gesture.locationInView(self.collectionView)
         path = self.collectionView!.indexPathForItemAtPoint(touch)
         
