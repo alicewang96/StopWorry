@@ -67,8 +67,8 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
             */
             
             makeNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis.", context: context,  day: day)
-            makeNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit.", context: context, day: day)
-            makeNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit. Morbi auctor metus ornare pulvinar blandit. Nullam eget sagittis nunc, et bibendum augue. Vestibulum id est tincidunt elit placerat molestie. Etiam auctor ante turpis.", context: context, day: day)
+            //makeNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit.", context: context, day: day)
+            //makeNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit. Morbi auctor metus ornare pulvinar blandit. Nullam eget sagittis nunc, et bibendum augue. Vestibulum id est tincidunt elit placerat molestie. Etiam auctor ante turpis.", context: context, day: day)
             
             do {
                 try(context.save())
@@ -142,46 +142,6 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        // Navigation bar title.
-        // NEED TO ADD NAVIGATION FOR PREV AND NEXT DAY.
-        navigationItem.title = "< Monday >"
-        
-        collectionView?.backgroundColor = UIColor(red: 245.0/255.0, green: 215.0/255.0, blue: 209.0/255.0, alpha: 1.0) // BACKGROUND COLOR
-        collectionView?.registerClass(HappyCell.self, forCellWithReuseIdentifier: cellID)
-        collectionView?.alwaysBounceVertical = true
-        collectionView?.allowsSelection = true
-        
-        //let addButton = newButton("NEW NOTE")
-        addRant = rantButton("NEW RANT")
-        //view.addSubview(addButton)
-        view.addSubview(addRant)
-        //view.addConstraintFormat("H:|[v0(\(view.frame.width/2))][v1(\(view.frame.width/2))]|", views: addButton, addRant)
-        view.addConstraintFormat("H:|[v0]|", views: addRant)
-        //view.addConstraintFormat("V:[v0]|", views: addButton)
-        view.addConstraintFormat("V:[v0]|", views: addRant)
-        
-        noteSetup()
-    }
-    
-    let buttonView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.blackColor()
-        
-        return view
-    } ()
-
-    func rantButton(title: String) -> UIButton {
-        let button = UIButton()
-        button.setTitle(title, forState: .Normal)
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.backgroundColor = UIColor.redColor()
-        return button
-    }
-    
     var path: NSIndexPath?
     
     func handleTap(gesture: UITapGestureRecognizer) {
@@ -204,8 +164,47 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         if let index = path {
             let cell = self.collectionView!.cellForItemAtIndexPath(index) as! HappyCell
             cell.placeholder.hidden = cell.textView.hasText()
+            
+            // RESIZING CELL
+            let fixedWidth = cell.frame.size.width
+            cell.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+            let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+            var newFrame = cell.frame
+            newFrame.size = CGSize(width: fixedWidth, height: newSize.height)
+            
+            cell.frame = newFrame
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        // Navigation bar title.
+        // NEED TO ADD NAVIGATION FOR PREV AND NEXT DAY.
+        navigationItem.title = "< Monday >"
+        
+        collectionView?.backgroundColor = UIColor(red: 245.0/255.0, green: 215.0/255.0, blue: 209.0/255.0, alpha: 1.0) // BACKGROUND COLOR
+        collectionView?.registerClass(HappyCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView?.alwaysBounceVertical = true
+        collectionView?.allowsSelection = true
+        
+        addRant = rantButton("NEW RANT")
+        view.addSubview(addRant)
+        view.addConstraintFormat("H:|[v0]|", views: addRant)
+        view.addConstraintFormat("V:[v0]|", views: addRant)
+        
+        noteSetup()
+    }
+
+    func rantButton(title: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle(title, forState: .Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        button.backgroundColor = UIColor.redColor()
+        return button
+    }
+
     
     // ROWS
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -229,25 +228,12 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         // AUTO LAYOUT HEIGHT
         let noteText = noteMgr[indexPath.item].content!
-        if noteText != "" {
-            let size = CGSizeMake(view.frame.width, view.frame.height)
-            let options = NSStringDrawingOptions.UsesFontLeading.union(.UsesLineFragmentOrigin)
-            let newFrame = NSString(string: noteText).boundingRectWithSize(size, options: options, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)], context: nil)
-            
-            // print(newFrame.height)
-            return CGSizeMake(view.frame.width, newFrame.height + 30) // FIND BETTER WAY OF CALC HEIGHT
-        } else {
-            return CGSizeMake(view.frame.width, view.frame.height/2)
-        }
+        let size = CGSizeMake(view.frame.width, view.frame.height)
+        let options = NSStringDrawingOptions.UsesFontLeading.union(.UsesLineFragmentOrigin)
+        let newFrame = NSString(string: noteText).boundingRectWithSize(size, options: options, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)], context: nil)
         
-//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: indexPath) as! HappyCell
-//        cell.setText(noteMgr[indexPath.item].content!)
-//        
-//        let newSize = cell.textView.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.max))
-//        cell.textView.frame.size = CGSize(width: view.frame.width, height: newSize.height)
-//        
-//        return cell.textView.frame.size
-        
+        // print(newFrame.height)
+        return CGSizeMake(view.frame.width, newFrame.height + 20) // FIND BETTER WAY OF CALC HEIGHT
     }
     
     // CELL DISTANCE
