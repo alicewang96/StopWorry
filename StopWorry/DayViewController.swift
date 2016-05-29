@@ -40,67 +40,17 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
     
     // CREATE A PLACEHOLDER NOTE. ADD NEW PLACEHLDER EVERY TIME NEW NOTE IS MADE.
     
+    var masterDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+    
     func noteSetup() {
         clearNotes()
-        
-        /*
-         HappyNote Properties:
-         content = String
-         time = NSDate
-         day = Day
-         
-         a. New HappyNote takes in USERINPUT. HappyCell adjusts HEIGHT depending on input.
-         b. HappyNote can be deleted.
-         c. One Day view per calender day that multiple HappyNotes map to.
-        */
-        
-        let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        if let context = delegate?.managedObjectContext {
-            let day = NSEntityDescription.insertNewObjectForEntityForName("Day", inManagedObjectContext: context) as! Day
-            day.day = NSDate()
-            
-            /* TESTING NSDATE
-            let test = day.day
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "MM/dd/YYYY hh:mm a"
-            print(dateFormatter.stringFromDate(test!))
-            */
-            
-            makeNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis.", context: context,  day: day)
-            //makeNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit.", context: context, day: day)
-            //makeNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit. Morbi auctor metus ornare pulvinar blandit. Nullam eget sagittis nunc, et bibendum augue. Vestibulum id est tincidunt elit placerat molestie. Etiam auctor ante turpis.", context: context, day: day)
-            
-            do {
-                try(context.save())
-            } catch let err {
-                print(err)
-            }
-            
-            loadNotes()
-            
-            if (noteMgr.count == 0) {
-                makeNote("", context: context, day: day)
-                
-                do {
-                    try(context.save())
-                } catch let err {
-                    print(err)
-                }
-            } else if (noteMgr[noteMgr.count - 1].content != "") {
-                makeNote("", context: context, day: day)
-             
-                do {
-                    try(context.save())
-                } catch let err {
-                    print(err)
-                }
-            }
-        }
+
+        makeNotes()
         
         loadNotes()
     }
     
-    func makeNote(content: String, context: NSManagedObjectContext, day: Day) {
+    func newNote(content: String, context: NSManagedObjectContext, day: Day) {
         let note = NSEntityDescription.insertNewObjectForEntityForName("HappyNote", inManagedObjectContext: context) as! HappyNote
         note.date = day
         note.time = NSDate()
@@ -108,9 +58,7 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     func clearNotes() {
-        let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        if let context = delegate?.managedObjectContext {
-            
+        if let context = masterDelegate?.managedObjectContext {
             do {
                 let entities = ["Day", "HappyNote"]
                 for entity in entities {
@@ -128,11 +76,40 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         }
     }
     
+    func makeNotes() {
+        if let context = masterDelegate?.managedObjectContext {
+            let day = NSEntityDescription.insertNewObjectForEntityForName("Day", inManagedObjectContext: context) as! Day
+            day.day = NSDate()
+            
+            /* TESTING NSDATE
+             let test = day.day
+             let dateFormatter = NSDateFormatter()
+             dateFormatter.dateFormat = "MM/dd/YYYY hh:mm a"
+             print(dateFormatter.stringFromDate(test!))
+             */
+            
+            newNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis.", context: context,  day: day)
+            //newNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit.", context: context, day: day)
+            //newNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit. Morbi auctor metus ornare pulvinar blandit. Nullam eget sagittis nunc, et bibendum augue. Vestibulum id est tincidunt elit placerat molestie. Etiam auctor ante turpis.", context: context, day: day)
+            
+            if (noteMgr.count == 0) {
+                newNote("", context: context, day: day)
+            } else if (noteMgr[noteMgr.count - 1].content != "") {
+                newNote("", context: context, day: day)
+            }
+            
+            do {
+                try(context.save())
+            } catch let err {
+                print(err)
+            }
+        }
+    }
+    
     func loadNotes() {
-        let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        if let context = delegate?.managedObjectContext {
+        if let context = masterDelegate?.managedObjectContext {
             let fetch = NSFetchRequest(entityName: "HappyNote")
-            fetch.sortDescriptors = [NSSortDescriptor(key: "time", ascending: true)] // should sort by recent
+            fetch.sortDescriptors = [NSSortDescriptor(key: "time", ascending: true)]
             
             do {
                 noteMgr = try(context.executeFetchRequest(fetch)) as!  [HappyNote]
@@ -164,15 +141,24 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         if let index = path {
             let cell = self.collectionView!.cellForItemAtIndexPath(index) as! HappyCell
             cell.placeholder.hidden = cell.textView.hasText()
+            noteMgr[index.item].content = "hi \n hi\n" // THIS NEEDS TO BE USER INPUT!!!
             
             // RESIZING CELL
             let fixedWidth = cell.frame.size.width
             cell.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
             let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-            var newFrame = cell.frame
-            newFrame.size = CGSize(width: fixedWidth, height: newSize.height)
+            cell.frame.size = CGSize(width: fixedWidth, height: newSize.height)
             
-            cell.frame = newFrame
+            if let context = masterDelegate?.managedObjectContext {
+                do {
+                    try(context.save())
+                } catch let err {
+                    print(err)
+                }
+            }
+            
+            self.collectionView!.reloadItemsAtIndexPaths([path!])
+            //self.collectionView!.collectionViewLayout.invalidateLayout()
         }
     }
     
