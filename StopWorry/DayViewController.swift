@@ -92,8 +92,6 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
             //newNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit.", context: context, day: day)
             //newNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit. Morbi auctor metus ornare pulvinar blandit. Nullam eget sagittis nunc, et bibendum augue. Vestibulum id est tincidunt elit placerat molestie. Etiam auctor ante turpis.", context: context, day: day)
             
-            print("make notes: \(masterDelegate)")
-            
             if (noteMgr.count == 0) {
                 newNote("", context: context, day: day)
             } else if (noteMgr[noteMgr.count - 1].content != "") {
@@ -125,7 +123,6 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
     
     func handleTap(gesture: UITapGestureRecognizer) {
         if (gesture.state != UIGestureRecognizerState.Ended) {
-            print("hi")
             return
         }
         
@@ -140,10 +137,11 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
             if (path!.item != (noteMgr.count - 1)) {
                 if noteMgr[noteMgr.count - 1].content != "" {
                     print(emptyNote())
+                    print("items: \(noteMgr.count), section: \(path!.section)")
+                    self.collectionView!.insertItemsAtIndexPaths([NSIndexPath(forItem: noteMgr.count - 1, inSection: path!.section)])
                 }
             }
             
-            //print("note count: \(noteMgr)")
         }
     }
     
@@ -153,11 +151,11 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
             day.day = NSDate()
             
             newNote("", context: context, day: day)
-            print("handle tap: \(masterDelegate)")
             
             do {
-                print("new note is made")
                 try(context.save())
+                loadNotes()
+                print(noteMgr.count)
                 return true
             } catch let err {
                 print(err)
@@ -167,18 +165,12 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         return false
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
     func textViewDidChange(textView: UITextView) {
         // DON'T MESS WITH THIS CODE!!!
         if let index = path {
             let cell = self.collectionView!.cellForItemAtIndexPath(index) as! HappyCell
             cell.placeholder.hidden = cell.textView.hasText()
             noteMgr[index.item].content = cell.textView.text
-            
-            print(path!.item)
             
             // RESIZING CELL
             let fixedWidth = cell.frame.size.width
