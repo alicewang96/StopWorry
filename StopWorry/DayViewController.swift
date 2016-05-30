@@ -29,7 +29,7 @@ import CoreData
 
 var noteMgr = [HappyNote]()
 
-class DayViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
+class DayViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate, UIGestureRecognizerDelegate {
     @IBOutlet var backButtton: UIButton!
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var nextButton: UIButton!
@@ -92,6 +92,8 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
             //newNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit.", context: context, day: day)
             //newNote("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed libero a dui pulvinar mollis et in felis. Proin porta eros dui, ut rhoncus diam mattis eu. Mauris eu nibh porttitor, sagittis massa nec, pretium risus. Vivamus eget orci tellus. Ut sollicitudin arcu a suscipit hendrerit. Morbi auctor metus ornare pulvinar blandit. Nullam eget sagittis nunc, et bibendum augue. Vestibulum id est tincidunt elit placerat molestie. Etiam auctor ante turpis.", context: context, day: day)
             
+            print("make notes: \(masterDelegate)")
+            
             if (noteMgr.count == 0) {
                 newNote("", context: context, day: day)
             } else if (noteMgr[noteMgr.count - 1].content != "") {
@@ -123,17 +125,50 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
     
     func handleTap(gesture: UITapGestureRecognizer) {
         if (gesture.state != UIGestureRecognizerState.Ended) {
+            print("hi")
             return
         }
         
         let touch = gesture.locationInView(self.collectionView)
         path = self.collectionView!.indexPathForItemAtPoint(touch)
+        print("item at path: \(path!.item)")
         
         if let index = path {
             let cell = self.collectionView!.cellForItemAtIndexPath(index) as! HappyCell
             cell.textView.becomeFirstResponder()
-            //print("isFirstResponder: \(cell.textView.isFirstResponder())")
+            
+            if (path!.item != (noteMgr.count - 1)) {
+                if noteMgr[noteMgr.count - 1].content != "" {
+                    print(emptyNote())
+                }
+            }
+            
+            //print("note count: \(noteMgr)")
         }
+    }
+    
+    func emptyNote() -> Bool {
+        if let context = masterDelegate?.managedObjectContext {
+            let day = NSEntityDescription.insertNewObjectForEntityForName("Day", inManagedObjectContext: context) as! Day
+            day.day = NSDate()
+            
+            newNote("", context: context, day: day)
+            print("handle tap: \(masterDelegate)")
+            
+            do {
+                print("new note is made")
+                try(context.save())
+                return true
+            } catch let err {
+                print(err)
+            }
+        }
+        
+        return false
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     func textViewDidChange(textView: UITextView) {
@@ -141,7 +176,9 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         if let index = path {
             let cell = self.collectionView!.cellForItemAtIndexPath(index) as! HappyCell
             cell.placeholder.hidden = cell.textView.hasText()
-            noteMgr[index.item].content = "hi \n hi\n" // THIS NEEDS TO BE USER INPUT!!!
+            noteMgr[index.item].content = cell.textView.text
+            
+            print(path!.item)
             
             // RESIZING CELL
             let fixedWidth = cell.frame.size.width
@@ -158,7 +195,8 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
             }
             
             self.collectionView!.reloadItemsAtIndexPaths([path!])
-            //self.collectionView!.collectionViewLayout.invalidateLayout()
+            let newCell = self.collectionView!.cellForItemAtIndexPath(index) as! HappyCell
+            newCell.textView.becomeFirstResponder()
         }
     }
     
@@ -205,6 +243,7 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         cell.placeholder.hidden = cell.textView.hasText()
         
         let noteRecognizer = UITapGestureRecognizer(target: self, action: #selector(DayViewController.handleTap))
+        noteRecognizer.delegate = self
         cell.textView.addGestureRecognizer(noteRecognizer)
 
         return cell
@@ -239,7 +278,7 @@ class HappyCell: NoteCell, UITextViewDelegate {
     
     let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 204.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.8) // CHANGE THIS COLOR
+        view.backgroundColor = UIColor(red: 204.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0) // CHANGE THIS COLOR
         return view
     }()
     
