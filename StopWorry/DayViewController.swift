@@ -120,6 +120,9 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     var path: NSIndexPath?
+    var prevCell: HappyCell?
+    var isLast = false
+    var lastIndex = 0
     
     func handleTap(gesture: UITapGestureRecognizer) {
         if (gesture.state != UIGestureRecognizerState.Ended) {
@@ -128,24 +131,52 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         
         let touch = gesture.locationInView(self.collectionView)
         path = self.collectionView!.indexPathForItemAtPoint(touch)
-        print("item at path: \(path!.item)")
+        //print("item at path: \(path!.item)")
         
         if let index = path {
             let cell = self.collectionView!.cellForItemAtIndexPath(index) as! HappyCell
             cell.textView.becomeFirstResponder()
             
-            if (path!.item != (noteMgr.count - 1)) {
-                if noteMgr[noteMgr.count - 1].content != "" {
-                    print(emptyNote())
-                    print("items: \(noteMgr.count), section: \(path!.section)")
-                    self.collectionView!.insertItemsAtIndexPaths([NSIndexPath(forItem: noteMgr.count - 1, inSection: path!.section)])
+            if (cell != prevCell && !isLast) {
+                if let prev = prevCell {
+                    if !(prev.textView.hasText()) {
+                        prev.hidden = true
+                        // THIS IS VERY GLITCHY
+                        
+                        if let context = masterDelegate?.managedObjectContext {
+                            do {
+                                context.deleteObject(noteMgr[lastIndex])
+                                noteMgr.removeAtIndex(lastIndex)
+                                
+                                print("cell is removed, noteMgr: \(noteMgr.count)")
+                                try(context.save())
+                            } catch let err {
+                                print(err)
+                            }
+                        }
+                        
+                        self.collectionView!.deleteItemsAtIndexPaths([NSIndexPath(forItem: lastIndex, inSection: path!.section)])
+                    }
                 }
             }
             
+            if (path!.item != (noteMgr.count - 1)) {
+                if noteMgr[noteMgr.count - 1].content != "" {
+                    emptyNote()
+                    self.collectionView!.insertItemsAtIndexPaths([NSIndexPath(forItem: noteMgr.count - 1, inSection: path!.section)])
+                }
+                
+                isLast = false
+                lastIndex = path!.item
+            } else {
+                isLast = true
+            }
+            
+            prevCell = cell
         }
     }
     
-    func emptyNote() -> Bool {
+    func emptyNote() {
         if let context = masterDelegate?.managedObjectContext {
             let day = NSEntityDescription.insertNewObjectForEntityForName("Day", inManagedObjectContext: context) as! Day
             day.day = NSDate()
@@ -155,14 +186,10 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
             do {
                 try(context.save())
                 loadNotes()
-                print(noteMgr.count)
-                return true
             } catch let err {
                 print(err)
             }
         }
-        
-        return false
     }
     
     func textViewDidChange(textView: UITextView) {
@@ -253,8 +280,7 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
         let options = NSStringDrawingOptions.UsesFontLeading.union(.UsesLineFragmentOrigin)
         let newFrame = NSString(string: noteText).boundingRectWithSize(size, options: options, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)], context: nil)
         
-        // print(newFrame.height)
-        return CGSizeMake(view.frame.width, newFrame.height + 20) // FIND BETTER WAY OF CALC HEIGHT
+        return CGSizeMake(view.frame.width, newFrame.height + 20)
     }
     
     // CELL DISTANCE
