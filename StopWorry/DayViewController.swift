@@ -140,9 +140,6 @@ class DayViewController: UICollectionViewController, UICollectionViewDelegateFlo
             if (cell != prevCell && !isLast) {
                 if let prev = prevCell {
                     if !(prev.textView.hasText()) {
-                        prev.hidden = true
-                        // THIS IS VERY GLITCHY
-                        
                         if let context = masterDelegate?.managedObjectContext {
                             do {
                                 context.deleteObject(noteMgr[lastIndex])
